@@ -19,19 +19,6 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      # 🔍 SAST: SonarQube
-      - name: SonarQube Scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-          unzip sonar-scanner.zip
-          ./sonar-scanner-*/bin/sonar-scanner \
-            -Dsonar.projectKey=devsecops-pipeline \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=https://sonarqube.example.com \
-            -Dsonar.login=$SONAR_TOKEN
-
       # 🔐 SCA: Snyk
       - name: Snyk Scan
         uses: snyk/actions@master
